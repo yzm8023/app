@@ -1,4 +1,4 @@
-package com.smonline.appbox.activity;
+package com.smonline.appbox.model;
 
 /**
  * Created by yzm on 17-12-1.

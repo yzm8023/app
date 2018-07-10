@@ -4,4 +4,8 @@
     <string name="pop_menu_uninstall">卸载</string>
     <string name="toast_tip_uninstall_failed">卸载失败!</string>
     <string name="launching_app">"正在启动 %s..."</string>
+
+    <!-- 应用导入界面用到的字符串 -->
+    <string name="appimport_title">应用导入</string>
+    <string name="appimport_loadapps">正在加载，请稍后...</string>
 </resources>

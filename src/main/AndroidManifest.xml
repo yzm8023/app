@@ -12,30 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
-            android:theme="@style/FullScreenTheme"
+            android:name=".boot.BootActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.splashloading.SplashLoadingActivity"
+            android:theme="@style/FullScreenTheme"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".activity.CloneAppActivity"
-            android:launchMode="singleTask"
+            android:name=".ui.appimport.AppImportActivity"
+            android:label="@string/appimport_title"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
-        <activity
-            android:name=".activity.LoadingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullScreenTheme"/>
     </application>
 
 </manifest>
