@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.smonline.appbox.R;
@@ -37,6 +38,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
+        mHomeViewModel.onActivityResume();
     }
 
     @Override
@@ -56,6 +58,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         final String appName = intent.getStringExtra("app_name");
         final String apkPath = intent.getStringExtra("apk_path");
         if(TextUtils.isEmpty(apkPath)) return;
-        mHomeViewModel.installNewApp(apkPath, appName);
+        mHomeViewModel.installNewApp(apkPath, appName, false);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(false);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

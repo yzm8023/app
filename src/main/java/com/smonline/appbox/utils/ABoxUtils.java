@@ -12,7 +12,7 @@ public class ABoxUtils {
     private static boolean DEBUG = BuildConfig.DEBUG;
     private static final String TAG_PREFIX = "ABox_";
 
-    public static void d(String tag, String strFormat, Object... args){
+    public static void logD(String tag, String strFormat, Object... args){
         if(DEBUG){
             Log.d(TAG_PREFIX + tag, String.format(strFormat, args));
         }

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
+    android:elevation="20dp"
     android:background="@android:color/white"
     android:padding="10dp">
 
@@ -10,7 +11,22 @@
         android:id="@+id/menu_uninstall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:text="@string/pop_menu_uninstall"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:id="@+id/menu_fix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:text="@string/pop_menu_fix"/>
 </LinearLayout>

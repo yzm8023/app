@@ -12,7 +12,54 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBgDark">
+        android:background="@color/colorScreenBg">
+
+        <LinearLayout
+            android:id="@+id/wechat_layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:visibility="visible">
+            <RelativeLayout
+                android:id="@+id/def_wechat_layout"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/white">
+
+                <ImageView
+                    android:id="@+id/wechat_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerInParent="true"
+                    android:elevation="5dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/wechat_icon"
+                    android:src="#88000000"/>
+
+                <TextView
+                    android:id="@+id/wechat_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/wechat_icon"
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp"
+                    android:text="@string/home_app_wechat"/>
+
+                <ImageView
+                    android:id="@+id/menu_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/menu_more"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/app_empty_tip"
@@ -21,7 +68,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
-            android:text="@string/tip_app_empty"/>
+            android:text="@string/tip_app_empty"
+            android:visibility="gone"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -36,7 +84,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/goto_clone_bg"
+            android:background="@drawable/circle_bg"
             android:src="@drawable/add"
             android:elevation="20dp"/>
     </FrameLayout>

@@ -82,11 +82,11 @@ public class AppImportViewModel {
                     appInfo.setApkPath(info.sourceDir);
                     mAllAppInfos.add(appInfo);
                     if(BuildConfig.DEBUG){
-                        ABoxUtils.d(TAG, "appInfo = " + appInfo.toString());
+                        ABoxUtils.logD(TAG, "appInfo = " + appInfo.toString());
                     }
                 }
                 if(BuildConfig.DEBUG){
-                    ABoxUtils.d(TAG, "mAllAppInfos size = " + mAllAppInfos.size());
+                    ABoxUtils.logD(TAG, "mAllAppInfos size = " + mAllAppInfos.size());
                 }
                 mHandler.postDelayed(new Runnable() {
                     @Override
@@ -106,7 +106,7 @@ public class AppImportViewModel {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             AppInfo appInfo = (AppInfo)adapterView.getAdapter().getItem(position);
             if(BuildConfig.DEBUG){
-                ABoxUtils.d(TAG, "@onItemClick, app = " + appInfo.getPackageName());
+                ABoxUtils.logD(TAG, "@onItemClick, app = " + appInfo.getPackageName());
             }
             Intent retIntent = new Intent(mActivity, HomeActivity.class);
             retIntent.putExtra("app_name", appInfo.getAppName());

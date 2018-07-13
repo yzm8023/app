@@ -1,11 +1,30 @@
 <resources>
+    <!-- Splash闪屏界面用到的字符串 -->
     <string name="app_name">应用魔方</string>
+    <string name="app_describe">一个神奇的应用双开神器</string>
+    <string name="launching_app">"正在加载，请稍后..."</string>
+
+    <!-- 应用Home主界面用到的字符串 -->
     <string name="tip_app_empty">尚未安装任何应用</string>
     <string name="pop_menu_uninstall">卸载</string>
+    <string name="pop_menu_fix">一键修复</string>
     <string name="toast_tip_uninstall_failed">卸载失败!</string>
-    <string name="launching_app">"正在启动 %s..."</string>
+    <string name="home_importing">正在导入：%s</string>
+    <string name="home_import_failed">导入失败</string>
+    <string name="home_fixing">正在修复：%s</string>
+    <string name="home_fix_done">修复成功</string>
+    <string name="home_fix_fail">无需修复</string>
+    <string name="home_fix_noneed">无需修复</string>
+    <string name="home_app_wechat">微信</string>
+    <string name="home_hint_import_wechat">点击导入微信</string>
+    <string name="home_hint_import_more">这里可导入更多应用</string>
+    <string name="home_toast_no_wechat">您的手机尚未安装微信</string>
 
     <!-- 应用导入界面用到的字符串 -->
     <string name="appimport_title">应用导入</string>
     <string name="appimport_loadapps">正在加载，请稍后...</string>
+
+    <!-- 用户引导界面用到的字符串 -->
+    <string name="userguide_title">用户引导</string>
+    <string name="userguide_start">开始体验</string>
 </resources>
