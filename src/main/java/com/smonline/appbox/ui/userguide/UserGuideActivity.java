@@ -39,7 +39,7 @@ public class UserGuideActivity extends BaseActivity {
         mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.lufei));
         mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.suolong));
         mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.shanzhi));
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.nami));
+        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.caomaotuan));
         mViewPager.setAdapter(mAdapter);
         CircleIndicator mIndicator = (CircleIndicator)findViewById(R.id.viewpager_indicator);
         mIndicator.setViewPager(mViewPager);
