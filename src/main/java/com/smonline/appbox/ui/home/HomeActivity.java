@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.smonline.appbox.R;
 import com.smonline.appbox.base.BaseActivity;
 import com.smonline.appbox.databinding.ActivityHomeBinding;
+import com.smonline.appbox.ui.about.AboutActivity;
 import com.smonline.appbox.ui.appimport.AppImportActivity;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener{
@@ -68,5 +71,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.about){
+            startActivity(new Intent(this, AboutActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

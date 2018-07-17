@@ -44,6 +44,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"/>
 
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/about_title"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

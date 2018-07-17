@@ -1,7 +1,7 @@
 <resources>
     <!-- Splash闪屏界面用到的字符串 -->
     <string name="app_name">应用魔方</string>
-    <string name="app_describe">一个神奇的应用双开神器</string>
+    <string name="app_describe">一个魔幻的应用双开神器</string>
     <string name="launching_app">"正在加载，请稍后..."</string>
 
     <!-- 应用Home主界面用到的字符串 -->
@@ -19,6 +19,7 @@
     <string name="home_hint_import_wechat">点击导入微信</string>
     <string name="home_hint_import_more">这里可导入更多应用</string>
     <string name="home_toast_no_wechat">您的手机尚未安装微信</string>
+    <string name="home_about">关于</string>
 
     <!-- 应用导入界面用到的字符串 -->
     <string name="appimport_title">应用导入</string>
@@ -27,4 +28,7 @@
     <!-- 用户引导界面用到的字符串 -->
     <string name="userguide_title">用户引导</string>
     <string name="userguide_start">开始体验</string>
+
+    <!-- 关于界面用到的字符串 -->
+    <string name="about_title">关于</string>
 </resources>
