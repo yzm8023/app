@@ -98,7 +98,6 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
                         }
                     };
                     HintViewUtil.showImportWechatHint(mActivity, mBinding.wechatIcon, importWechatClickListener);
-                    ABoxUtils.logD(TAG, "showImportWechatHint");
                 }
             }, 1000);
         }

@@ -45,5 +45,13 @@
                 android:layout_marginBottom="10dp"/>
 
         </RelativeLayout>
+        <TextView
+            android:id="@+id/noapp_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/appimport_noapps"
+            android:visibility="gone"/>
     </FrameLayout>
 </layout>

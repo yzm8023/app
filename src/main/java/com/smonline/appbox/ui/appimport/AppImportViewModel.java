@@ -91,8 +91,14 @@ public class AppImportViewModel {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mListAdapter = new ListAdapter<>(mActivity, mAllAppInfos, R.layout.appimport_list_item, BR.appInfo);
-                        mBinding.listView.setAdapter(mListAdapter);
+                        if(mAllAppInfos.size() == 0){
+                            mBinding.listView.setVisibility(View.INVISIBLE);
+                            mBinding.loadAppsLayout.setVisibility(View.INVISIBLE);
+                            mBinding.noappTip.setVisibility(View.VISIBLE);
+                        }else {
+                            mListAdapter = new ListAdapter<>(mActivity, mAllAppInfos, R.layout.appimport_list_item, BR.appInfo);
+                            mBinding.listView.setAdapter(mListAdapter);
+                        }
                     }
                 }, 1000);
                 return null;

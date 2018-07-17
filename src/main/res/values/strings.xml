@@ -24,6 +24,7 @@
     <!-- 应用导入界面用到的字符串 -->
     <string name="appimport_title">应用导入</string>
     <string name="appimport_loadapps">正在加载，请稍后...</string>
+    <string name="appimport_noapps">您的手机尚未安装三方应用</string>
 
     <!-- 用户引导界面用到的字符串 -->
     <string name="userguide_title">用户引导</string>
