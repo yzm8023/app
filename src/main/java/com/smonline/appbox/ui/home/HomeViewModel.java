@@ -37,6 +37,7 @@ import com.smonline.appbox.utils.ABoxUtils;
 import com.smonline.appbox.utils.HintViewUtil;
 import com.smonline.virtual.client.core.InstallStrategy;
 import com.smonline.virtual.client.core.VirtualCore;
+import com.smonline.virtual.client.ipc.VActivityManager;
 import com.smonline.virtual.helper.sp.SharedPreferencesConstants.InitInfo;
 import com.smonline.virtual.helper.sp.SharedPreferencesUtil;
 import com.smonline.virtual.remote.InstallResult;
@@ -55,8 +56,8 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
 
     private Activity mActivity;
     private ActivityHomeBinding mBinding;
-
-    private Dialog mLoadingDialog;
+    private Dialog mDialog;
+    private LayoutInflater mInflater;
     private HomeAppInfoAdapter mAdapter;
     private PackageManager mPackageManager;
     private ObservableArrayList<AppInfo> mInstalledAppInfos = new ObservableArrayList<>();
@@ -65,6 +66,7 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
     public HomeViewModel(Activity activity, ActivityHomeBinding binding){
         mActivity = activity;
         mBinding = binding;
+        mInflater = LayoutInflater.from(activity);
         mPackageManager = VirtualCore.get().getUnHookPackageManager();
         mBinding.recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3));
         mBinding.recyclerView.addItemDecoration(new MyItemDecoration());
@@ -156,25 +158,8 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
             uninstallText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(VirtualCore.get().uninstallPackage(appInfo.getPackageName())){
-                        ListIterator<AppInfo> iterator = mInstalledAppInfos.listIterator();
-                        while (iterator.hasNext()){
-                            AppInfo info = iterator.next();
-                            if(info != null && info.getPackageName().equals(appInfo.getPackageName())){
-                                iterator.remove();
-                                break;
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged();
-                        if(mInstalledAppInfos.size() == 0){
-                            mBinding.appEmptyTip.setVisibility(View.VISIBLE);
-                            mBinding.recyclerView.setVisibility(View.GONE);
-                            mBinding.wechatLayoutContainer.setVisibility(View.GONE);
-                        }
-                    }else {
-                        Toast.makeText(mActivity, mActivity.getText(R.string.toast_tip_uninstall_failed), Toast.LENGTH_SHORT).show();
-                    }
                     popupWindow.dismiss();
+                    showUninstallDialog(mActivity, appInfo);
                 }
             });
             fixText.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +193,7 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
             popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             popupWindow.setFocusable(true);
             popupWindow.showAsDropDown(v);
-            backgroundAlpha(0.5f);
+            backgroundAlpha(0.7f);
         }else {
             SplashLoadingActivity.launchApp(mActivity, appInfo, 0);
         }
@@ -227,8 +212,7 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
                 super.onPreExecute();
                 String dialogMsg = isUpdate ? String.format(mActivity.getResources().getString(R.string.home_fixing), appName) :
                         String.format(mActivity.getResources().getString(R.string.home_importing), appName);
-                mLoadingDialog = createLoadingDialog(mActivity, dialogMsg);
-                mLoadingDialog.show();
+                showImportingDialog(mActivity, dialogMsg);
             }
 
             @Override
@@ -265,24 +249,79 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
                     }
                     Toast.makeText(mActivity,msgId, Toast.LENGTH_LONG).show();
                 }
-                mLoadingDialog.dismiss();
-                mLoadingDialog = null;
+                if(mDialog != null) {
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
             }
         }.execute();
     }
 
-    private Dialog createLoadingDialog(Context context, String msg) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.dialog_importing, null);
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);
+    private void uninstallApp(AppInfo appInfo){
+        if(VirtualCore.get().uninstallPackage(appInfo.getPackageName())){
+            VActivityManager.get().killAppByPkg(appInfo.getPackageName(), 0);
+            ListIterator<AppInfo> iterator = mInstalledAppInfos.listIterator();
+            while (iterator.hasNext()){
+                AppInfo info = iterator.next();
+                if(info != null && info.getPackageName().equals(appInfo.getPackageName())){
+                    iterator.remove();
+                    break;
+                }
+            }
+            mAdapter.notifyDataSetChanged();
+            if(mInstalledAppInfos.size() == 0){
+                mBinding.appEmptyTip.setVisibility(View.VISIBLE);
+                mBinding.recyclerView.setVisibility(View.GONE);
+                mBinding.wechatLayoutContainer.setVisibility(View.GONE);
+            }
+        }else {
+            Toast.makeText(mActivity, mActivity.getText(R.string.toast_tip_uninstall_failed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Dialog showImportingDialog(Context context, String msg) {
+        View v = mInflater.inflate(R.layout.dialog_importing, null);
         ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
         TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);
         Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(context, R.anim.loading_animation);
         spaceshipImage.startAnimation(hyperspaceJumpAnimation);
         tipTextView.setText(msg);
-        Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);
-        loadingDialog.setCancelable(false);
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
-        return loadingDialog;
+        mDialog = new Dialog(context, R.style.BaseDialog);
+        mDialog.setCancelable(false);
+        mDialog.setContentView(v, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+        mDialog.show();
+        return mDialog;
+    }
+
+    private Dialog showUninstallDialog(Context context, final AppInfo appInfo){
+        mDialog = new Dialog(context, R.style.BaseDialog);
+        View view = mInflater.inflate(R.layout.dialog_uninstall, null);
+        TextView appNameTxt = (TextView)view.findViewById(R.id.app_name);
+        appNameTxt.setText(appInfo.getAppName());
+        TextView cancelTxt = (TextView)view.findViewById(R.id.cancel);
+        cancelTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mDialog != null){
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
+            }
+        });
+        TextView okTxt = (TextView)view.findViewById(R.id.ok);
+        okTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uninstallApp(appInfo);
+                if(mDialog != null){
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
+            }
+        });
+        mDialog.setCancelable(false);
+        mDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+        mDialog.show();
+        return mDialog;
     }
 }
