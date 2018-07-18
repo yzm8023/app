@@ -200,6 +200,18 @@
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
+
+
+-keepclasseswithmembers public class * implements  android.accounts.IAccountManagerResponse{ *;}
+-keepclasseswithmembers public class * implements  android.app.IServiceConnection{ *;}
+-keepclasseswithmembers class * extends android.accounts.IAccountManagerResponse$Stub { *;}
+-keepclasseswithmembers class * extends android.app.IServiceConnection$Stub { *;}
+
+-dontwarn android.accounts.IAccountManagerResponse
+-dontwarn android.accounts.IAccountManagerResponse$Stub
+-dontwarn android.app.IActivityManager
+-dontwarn android.app.IServiceConnection
+-dontwarn android.app.IServiceConnection$Stub
 #--------------------------------------------------------------------------------------------------
 
 ###################################################################################################
