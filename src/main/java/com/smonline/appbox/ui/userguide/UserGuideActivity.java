@@ -36,14 +36,12 @@ public class UserGuideActivity extends BaseActivity {
         setContentView(R.layout.activity_userguide);
         ViewPager mViewPager = (ViewPager)findViewById(R.id.view_pager);
         UserGuidePagerAdapter mAdapter = new UserGuidePagerAdapter(this);
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.lufei));
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.suolong));
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.shanzhi));
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.caomaotuan));
+        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_1));
+        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_2));
+        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_3));
         mViewPager.setAdapter(mAdapter);
         CircleIndicator mIndicator = (CircleIndicator)findViewById(R.id.viewpager_indicator);
         mIndicator.setViewPager(mViewPager);
-        SharedPreferencesUtil.setValue(InitInfo.name, InitInfo.userguideShowed, true);
     }
 
     public class UserGuidePagerAdapter extends PagerAdapter {
@@ -75,6 +73,7 @@ public class UserGuideActivity extends BaseActivity {
                 guideBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        SharedPreferencesUtil.setValue(InitInfo.name, InitInfo.userguideShowed, true);
                         HomeActivity.goHome(mContext);
                         UserGuideActivity.this.finish();
                     }

@@ -13,11 +13,8 @@ import com.smonline.appbox.R;
 import com.smonline.appbox.model.AppInfo;
 import com.smonline.appbox.ui.home.HomeActivity;
 import com.smonline.appbox.base.BaseActivity;
-import com.smonline.appbox.ui.userguide.UserGuideActivity;
 import com.smonline.virtual.client.core.VirtualCore;
 import com.smonline.virtual.client.ipc.VActivityManager;
-import com.smonline.virtual.helper.sp.SharedPreferencesConstants.InitInfo;
-import com.smonline.virtual.helper.sp.SharedPreferencesUtil;
 import com.smonline.virtual.remote.InstalledAppInfo;
 
 /**
@@ -91,11 +88,7 @@ public class SplashLoadingActivity extends BaseActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(SharedPreferencesUtil.getBooleanValue(InitInfo.name, InitInfo.userguideShowed, false)){
-                        HomeActivity.goHome(SplashLoadingActivity.this);
-                    }else {
-                        startActivity(new Intent(SplashLoadingActivity.this, UserGuideActivity.class));
-                    }
+                    HomeActivity.goHome(SplashLoadingActivity.this);
                 }
             }, 1000);
         }
