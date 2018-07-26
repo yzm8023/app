@@ -1,6 +1,8 @@
 package com.smonline.appbox.ui.userguide;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.smonline.appbox.widget.CircleIndicator;
 import com.smonline.virtual.helper.sp.SharedPreferencesConstants.InitInfo;
 import com.smonline.virtual.helper.sp.SharedPreferencesUtil;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,32 @@ public class UserGuideActivity extends BaseActivity {
         mViewPager.setAdapter(mAdapter);
         CircleIndicator mIndicator = (CircleIndicator)findViewById(R.id.viewpager_indicator);
         mIndicator.setViewPager(mViewPager);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            Object userManager = this.getSystemService(Context.USER_SERVICE);
+            if (userManager != null) {
+                Method getUserHandle = userManager.getClass().getMethod("getUserHandle", (Class<?>[]) null);
+                getUserHandle.setAccessible(true);
+                int userHandle = (int) getUserHandle.invoke(userManager);
+                if(userHandle != 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(android.R.string.dialog_alert_title);
+                    builder.setMessage(R.string.single_user_tip);
+                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            UserGuideActivity.this.finish();
+                        }
+                    });
+                    builder.create().show();
+                }
+            }
+        } catch (Exception e) {
+        }
     }
 
     public class UserGuidePagerAdapter extends PagerAdapter {
