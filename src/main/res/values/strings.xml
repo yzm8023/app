@@ -2,7 +2,10 @@
     <!-- Splash闪屏界面用到的字符串 -->
     <string name="app_name">应用魔方</string>
     <string name="app_describe">一个魔幻的应用双开神器</string>
+
+    <!-- 程序猿猴子界面用到的字符串 -->
     <string name="launching_app">"正在加载，请稍后..."</string>
+    <string name="launching_app_failed_toast">"应用启动失败，请修复后再次尝试"</string>
 
     <!-- 应用Home主界面用到的字符串 -->
     <string name="tip_app_empty">尚未安装任何应用</string>

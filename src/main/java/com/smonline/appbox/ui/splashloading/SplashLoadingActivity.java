@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.smonline.appbox.R;
 import com.smonline.appbox.model.AppInfo;
@@ -34,6 +37,7 @@ public class SplashLoadingActivity extends BaseActivity {
     private static final String KEY_USER = "KEY_USER";
 
     private boolean isLaunchingApp = false;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public static void launchApp(Context context, AppInfo appInfo, int userId){
         Intent intent = VirtualCore.get().getLaunchIntent(appInfo.getPackageName(), userId);
@@ -85,12 +89,26 @@ public class SplashLoadingActivity extends BaseActivity {
         super.onResume();
         /**不是启动插件app则跳转到home界面**/
         if(!isLaunchingApp){
-            new Handler().postDelayed(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     HomeActivity.goHome(SplashLoadingActivity.this);
                 }
             }, 1000);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(isLaunchingApp && !TextUtils.isEmpty(intent.getStringExtra("crashPkg"))){
+            Toast.makeText(this, R.string.launching_app_failed_toast, Toast.LENGTH_LONG).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SplashLoadingActivity.this.finish();
+                }
+            }, 500);
         }
     }
 

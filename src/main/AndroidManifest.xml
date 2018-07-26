@@ -19,6 +19,7 @@
         </activity>
         <activity
             android:name=".ui.splashloading.SplashLoadingActivity"
+            android:launchMode="singleTop"
             android:theme="@style/FullScreenTheme"
             android:screenOrientation="portrait">
         </activity>
