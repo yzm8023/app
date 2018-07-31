@@ -17,4 +17,10 @@ public class ABoxUtils {
             Log.d(TAG_PREFIX + tag, String.format(strFormat, args));
         }
     }
+
+    public static void logE(String tag, String strFormat, Object... args){
+        if(DEBUG){
+            Log.e(TAG_PREFIX + tag, String.format(strFormat, args));
+        }
+    }
 }

@@ -32,7 +32,7 @@ import com.smonline.appbox.R;
 import com.smonline.appbox.databinding.ActivityHomeBinding;
 import com.smonline.appbox.model.AppInfo;
 import com.smonline.appbox.ui.appimport.AppImportActivity;
-import com.smonline.appbox.ui.splashloading.SplashLoadingActivity;
+import com.smonline.appbox.ui.splashloading.SplashAdActivity;
 import com.smonline.appbox.utils.ABoxUtils;
 import com.smonline.appbox.utils.HintViewUtil;
 import com.smonline.virtual.client.core.InstallStrategy;
@@ -195,7 +195,7 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
             popupWindow.showAsDropDown(v);
             backgroundAlpha(0.7f);
         }else {
-            SplashLoadingActivity.launchApp(mActivity, appInfo, 0);
+            SplashAdActivity.launchApp(mActivity, appInfo, 0);
         }
     }
 

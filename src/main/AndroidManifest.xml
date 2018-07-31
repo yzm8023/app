@@ -18,9 +18,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.splashloading.SplashLoadingActivity"
+            android:name=".ui.splashloading.SplashAdActivity"
             android:launchMode="singleTop"
             android:theme="@style/FullScreenTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".ui.splashloading.LoadingAppActivity"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@style/FullScreenNoAnimTheme"
             android:screenOrientation="portrait">
         </activity>
 
@@ -47,6 +56,19 @@
             android:name=".ui.about.AboutActivity"
             android:label="@string/about_title"
             android:screenOrientation="portrait"/>
+        <!-- **************************以下配置都是和广告相关的了××××××××××××××××××××××××××××××××× -->
+        <!-- 1、打开apk安装界面功能需要的provider，当targetSDKVersion >= 24时才需要添加这个provider。
+        provider的authorities属性的值为${applicationId}.fileprovider，当点击广告之后通常会下载广告推广
+        的apk，下载完成之后调起安装界面时用到这个了-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider" />
+        </provider>
 
     </application>
 
