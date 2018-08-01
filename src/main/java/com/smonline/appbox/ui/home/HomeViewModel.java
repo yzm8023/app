@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,6 +184,9 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
                     }
                 }
             });
+            int windowWidth = mActivity.getResources().getDimensionPixelSize(R.dimen.pop_menu_layout_width);
+            popupWindow.setWidth(windowWidth);
+            popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -192,7 +196,11 @@ public class HomeViewModel implements View.OnClickListener, HomeAppInfoAdapter.O
             popupWindow.setContentView(contentLayout);
             popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             popupWindow.setFocusable(true);
-            popupWindow.showAsDropDown(v);
+            popupWindow.setAnimationStyle(R.style.PopwindowAnimStyle);
+            int[] loc = new int[2];
+            v.getLocationInWindow(loc);
+            popupWindow.showAtLocation(v, Gravity.LEFT|Gravity.TOP,
+                    loc[0] - windowWidth + v.getWidth(), loc[1] + v.getHeight());
             backgroundAlpha(0.7f);
         }else {
             SplashAdActivity.launchApp(mActivity, appInfo, 0);

@@ -46,4 +46,10 @@
         <item name="android:windowAnimationStyle">@style/noAnimation</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <!-- Popupwindow显示和消失的动画 -->
+    <style name="PopwindowAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/pophide_anim</item>
+    </style>
 </resources>
