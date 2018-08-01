@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#263238</color>
     <color name="colorAccent">@android:color/holo_blue_light</color>
     <color name="colorScreenBg">#f0f0f0</color>
+    <color name="item_press_bg">#e8e8e8</color>
 </resources>

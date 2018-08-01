@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.smonline.appbox.R;
 import com.smonline.appbox.base.BaseActivity;
@@ -39,7 +40,7 @@ public class UserGuideActivity extends BaseActivity {
         setContentView(R.layout.activity_userguide);
         ViewPager mViewPager = (ViewPager)findViewById(R.id.view_pager);
         UserGuidePagerAdapter mAdapter = new UserGuidePagerAdapter(this);
-        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_1));
+        mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.mipmap.ic_launcher_no_bg));
         mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_2));
         mAdapter.getGuideImgs().add(this.getResources().getDrawable(R.drawable.userguide_3));
         mViewPager.setAdapter(mAdapter);
@@ -94,10 +95,14 @@ public class UserGuideActivity extends BaseActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             View pager = LayoutInflater.from(mContext).inflate(R.layout.userguide_pager_item, null);
             Drawable guideImgItem = mGuideImgs.get(position);
+            RelativeLayout logoLayout = (RelativeLayout)pager.findViewById(R.id.logo_rlayout);
             ImageView guideImg = pager.findViewById(R.id.guide_img);
             Button guideBtn = pager.findViewById(R.id.guide_btn);
             guideImg.setImageDrawable(guideImgItem);
-            if(position == mGuideImgs.size() - 1){
+            if(position == 0){
+                logoLayout.setVisibility(View.VISIBLE);
+                guideImg.setVisibility(View.GONE);
+            }else if(position == mGuideImgs.size() - 1){
                 guideBtn.setVisibility(View.VISIBLE);
                 guideBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
