@@ -36,6 +36,7 @@
 
     <!-- 关于界面用到的字符串 -->
     <string name="about_title">关于</string>
+    <string name="about_share_describe">一个魔幻的应用双开神器，扫一扫分享给朋友</string>
 
     <!-- 通用字符串 -->
     <string name="ok">确定</string>
